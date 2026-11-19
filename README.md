@@ -39,7 +39,27 @@ MobileNetV2 backbone (ImageNet weights, frozen)
 | Training | 20 epochs, batch size 32, data augmentation |
 | Baselines | SVM, plain CNN (3 pairs of 32-filter conv layers + max pooling) |
 
-## Results reported in the paper
+## Results
+
+### This implementation
+
+MobileNetV2 classifier, 1,376-image dataset, 80/20 stratified split (276 test images), 20 epochs, trained on a MacBook Air (Apple M1, 8 GB):
+
+| Class | Precision | Recall | F1 | Test images |
+|---|---|---|---|---|
+| with_mask | 1.0000 | 0.9928 | 0.9964 | 138 |
+| without_mask | 0.9928 | 1.0000 | 0.9964 | 138 |
+| **Overall accuracy** | | | **99.64%** | 276 |
+
+One test image out of 276 was misclassified.
+
+![Training loss and accuracy](docs/training_plot.png)
+
+![Live detection demo](docs/demo.png)
+
+**Why the score is so high, and why it won't hold in the real world.** Many "with mask" images in this dataset were created by overlaying a mask onto "without mask" photos using facial landmarks. The same faces can therefore appear in both training and test sets, and the synthetic masks all look alike, which makes the test easier than real camera footage. A person-level split or a test set of real masked photos would give a more honest estimate.
+
+### Results reported in the paper
 
 | Model | Accuracy (%) | Precision (%) | Recall (%) | F1 (%) |
 |---|---|---|---|---|
@@ -47,7 +67,7 @@ MobileNetV2 backbone (ImageNet weights, frozen)
 | CNN | 91.03 | 86 | 88 | 86 |
 | **MobileNet (depthwise-separable)** | **93.16** | **90** | **91** | **89** |
 
-These are the averages from the paper's comparison table. Re-running `train.py` and `baselines.py` writes fresh reports to `outputs/`; results will vary with the dataset copy and random seed.
+These are the averages from the paper's comparison table. Run `python src/baselines.py` to reproduce the SVM and CNN baselines on the same split.
 
 ## Project structure
 
