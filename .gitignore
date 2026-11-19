@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+
+# dataset images and trained outputs are not committed
+dataset/**/*
+!dataset/**/
+!dataset/**/.gitkeep
+outputs/*
+!outputs/.gitkeep
