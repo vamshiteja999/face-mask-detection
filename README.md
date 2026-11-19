@@ -53,10 +53,6 @@ MobileNetV2 classifier, 1,376-image dataset, 80/20 stratified split (276 test im
 
 One test image out of 276 was misclassified.
 
-![Training loss and accuracy](docs/training_plot.png)
-
-![Live detection demo](docs/demo.png)
-
 **Why the score is so high, and why it won't hold in the real world.** Many "with mask" images in this dataset were created by overlaying a mask onto "without mask" photos using facial landmarks. The same faces can therefore appear in both training and test sets, and the synthetic masks all look alike, which makes the test easier than real camera footage. A person-level split or a test set of real masked photos would give a more honest estimate.
 
 ### Results reported in the paper
